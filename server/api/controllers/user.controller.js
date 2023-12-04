@@ -1,37 +1,49 @@
 import User from "../models/user.models.js";
 import bcrypt from "bcryptjs";
+import { errorHandler } from "../middleware/errorHandle.js";
 import jwt from "jsonwebtoken";
 
+//REGISTER
 export const signup = async (req, res, next) => {
+  const { name, email, password } = req.body;
+  const hashedPassword = bcrypt.hashSync(password, 10);
+  const newUser = new User({ name, email, password: hashedPassword });
   try {
-    const { email, password, name} = req.body;
-    const hashedPassword = bcrypt.hashSync(password, 10);
-    const result = await User.create({ email, name, password: hashedPassword });
-    res.status(200).json(result);
+    await newUser.save();
+    res.status(200).json({ message: "User created successfully" });
   } catch (error) {
-    res.status(400).json(error.message);
+    next(error);
   }
 };
 
+
+
+
+//LOGIN
 export const login = async (req, res, next) => {
   const { email, password } = req.body;
-  const user = await User.findOne({ email });
-  if (!user) return res.status(401);
+  try {
+    const validUser = await User.findOne({ email });
+    if (!validUser) return next(errorHandler(404, "User not found"));
 
-  const passwordMatch = bcrypt.compareSync(password, user.password);
-  if (!passwordMatch) return res.status(401);
+    const validPassword = bcrypt.compareSync(password, validUser.password);
+    if (!validPassword) return next(errorHandler(401, "Wrong credentials"));
 
-  const exp = Date.now() + 1000 * 60 * 60 * 24 * 30;
-  var token = jwt.sign({ user: user._id, exp }, process.env.SECRET);
-
-  res.cookie("Authorization", token, {
-    expires: new Date(exp),
-    httpOnly: true,
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
-  });
-  res.status(200).json({ message: "Usuario logeado" });
+    const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
+    const { password: hashedPassword, ...rest } = validUser._doc;
+    const expiryDate = new Date(Date.now() + 3600000); //1 hora
+    res
+      .cookie("acces_token", token, {
+        httpOnly: true,
+        expires: expiryDate,
+      })
+      .status(200)
+      .json(rest);
+  } catch (error) {
+    next(error);
+  }
 };
+
 
 
 
@@ -42,8 +54,6 @@ export const checkAuth = (req, res) => {
     return res.status(400);
   }
 };
-
-
 
 export const logout = async (req, res, next) => {
   const id = req.params.id;

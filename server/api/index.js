@@ -15,7 +15,7 @@ const app = express();
 //config express app
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors())
+app.use(cors({credentials:true, origin:'http://localhost:3000/'}))
 
 //conecta a la base de datos
 mongodbConfig();
@@ -23,6 +23,16 @@ mongodbConfig();
 //Rutas de la aplicacion
 app.use("/api/user", userRoutes);
 
+// Middleware para manejo de errores
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  const message = err.message || "Internal Server Error";
+  return res.status(statusCode).json({
+    success: false,
+    statusCode,
+    message,
+  });
+});
 
 //iniciar el servidor
 app.listen(process.env.PORT, () => {

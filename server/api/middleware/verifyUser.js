@@ -1,35 +1,14 @@
 import jwt from "jsonwebtoken";
-import User from "../models/user.models.js";
+import { errorHandler } from "./errorHandle.js";
 
-// Verificar la autenticación del usuario
-export const verifyToken = async (req, res, next) => {
-  try {
-    const token = req.cookies.Authorization;
+export const verifyToken = (req, res, next) => {
+  const token = req.cookies.access_token;
 
-    if (!token) {
-      return res
-        .status(401)
-        .json({ message: "Acceso no autorizado. Token no proporcionado." });
-    }
+  if (!token) return next(errorHandler(401, "You are not authenticated!"));
 
-    const decoded = jwt.verify(token, process.env.SECRET);
-
-    //check expiration
-    if (Data.now() > decoded.exp)
-      return res.status(401).json({ message: "Acceso expirado" });
-
-    const user = await User.findById(decoded.sub);
-    if (!user) {
-      return res
-        .status(401)
-        .json({ message: "Acceso no autorizado. Usuario no encontrado." });
-    }
-
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    if (err) return next(errorHandler(403, "Token is not valid"));
     req.user = user;
     next();
-  } catch (error) {
-    return res
-      .status(401)
-      .json({ message: "Acceso no autorizado. Token no válido." });
-  }
+  });
 };
