@@ -6,6 +6,7 @@ import {
   signInSuccess,
   signInStart,
 } from "../redux/user/userSlice";
+import ButtonGoogle from "../Components/ButtonGoogle";
 
 export default function LoginPage() {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ export default function LoginPage() {
     e.preventDefault();
     dispatch(signInStart());
     try {
-      const response = await fetch("/api/user/signin", {
+      const response = await fetch("/api/auth/signin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(user),
@@ -43,7 +44,6 @@ export default function LoginPage() {
       dispatch(signInSuccess(data));
       navigate("/");
     } catch (error) {
-      setLoading(false);
       dispatch(signInFailure(error.message));
     }
   };
@@ -96,10 +96,11 @@ export default function LoginPage() {
                   </Link>
                 </label>
               </div>
-              <div className="form-control mt-6">
+              <div className="form-control mt-6 gap-2">
                 <button disabled={loading} className="btn btn-primary">
                   {loading ? "Loading..." : "Sign In"}
                 </button>
+                <ButtonGoogle/>
                 {error && (
                   <p className="p-1 text-left text-sm text-red-400">{error}</p>
                 )}

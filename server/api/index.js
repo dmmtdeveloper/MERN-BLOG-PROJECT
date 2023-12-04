@@ -1,7 +1,7 @@
 //importar dependencias
 import express from "express";
 import mongodbConfig from "./config/mongodbConfig.js";
-import userRoutes from "./routes/user.routes.js";
+import userRoutes from "./routes/auth.routes.js";
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 
@@ -21,7 +21,7 @@ app.use(cors({credentials:true, origin:'http://localhost:3000/'}))
 mongodbConfig();
 
 //Rutas de la aplicacion
-app.use("/api/user", userRoutes);
+app.use("/api/auth", userRoutes);
 
 // Middleware para manejo de errores
 app.use((err, req, res, next) => {

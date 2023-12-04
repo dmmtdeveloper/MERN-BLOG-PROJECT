@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import ButtonGoogle from "../Components/ButtonGoogle";
 
 export default function RegisterPage() {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ export default function RegisterPage() {
     e.preventDefault();
     setLoading(true)
     try {
-      const response = await fetch("/api/user/signup", {
+      const response = await fetch("/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(user),
@@ -108,10 +109,11 @@ export default function RegisterPage() {
                   </Link>
                 </label>
               </div>
-              <div className="form-control mt-6">
+              <div className="form-control mt-6 gap-2">
                 <button disabled={loading} className="btn btn-primary">
                   {loading ? "Loading..." : "Register"}
                 </button>
+                <ButtonGoogle/>
                 {error && (
                   <p className="p-1 text-left text-sm text-red-400">{error}</p>
                 )}
