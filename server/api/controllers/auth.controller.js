@@ -65,12 +65,12 @@ export const google = async (req, res, next) => {
       //encriptado de password
       const hashedPassword = bcrypt.hashSync(generatedPassword, 10);
 
-      const username =
+      const name =
         req.body.name.split(" ").join("").toLowerCase() +
         Math.random().toString(36).slice(-8);
 
       const newUser = new User({
-        username,
+        name,
         email: req.body.email,
         password: hashedPassword,
         profilePicture: req.body.photo,
@@ -92,6 +92,9 @@ export const google = async (req, res, next) => {
     next(error);
   }
 };
+
+
+
 
 export const signout = async (req, res) => {
   res.clearCookie("access_token").status(200).json("Signout success");
