@@ -11,7 +11,7 @@ import ButtonGoogle from "../Components/ButtonGoogle";
 export default function LoginPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {error, loading} = useSelector((state) => state.user);
+  const { error, loading } = useSelector((state) => state.user);
 
   const [user, setUser] = useState({
     email: "",
@@ -59,6 +59,15 @@ export default function LoginPage() {
             </p>
           </div>
           <div className="card w-full max-w-sm shrink-0 bg-base-100 shadow-2xl">
+            <div className="mt-5 flex items-center justify-center gap-1">
+              <p className="text-sm">Dont have an account?</p>
+              <Link
+                to="/register"
+                className="link-hover link label-text-alt text-sm font-bold text-blue-400"
+              >
+                <p>register</p>
+              </Link>
+            </div>
             <form onSubmit={handleSubmit} className="card-body">
               <div className="form-control">
                 <label className="label">
@@ -69,7 +78,7 @@ export default function LoginPage() {
                   value={email}
                   type="email"
                   id="email"
-                  placeholder="email"
+                  // placeholder="email"
                   className="input input-bordered"
                   required
                 />
@@ -83,24 +92,17 @@ export default function LoginPage() {
                   value={password}
                   type="password"
                   id="password"
-                  placeholder="password"
+                  // placeholder="password"
                   className="input input-bordered"
                   required
                 />
-                <label className="label">
-                  <Link
-                    to="/register"
-                    className="link-hover link label-text-alt text-blue-400"
-                  >
-                    Dont have an account?
-                  </Link>
-                </label>
+                <label className="label"></label>
               </div>
               <div className="form-control mt-6 gap-2">
                 <button disabled={loading} className="btn btn-primary">
                   {loading ? "Loading..." : "Sign In"}
                 </button>
-                <ButtonGoogle/>
+                <ButtonGoogle />
                 {error && (
                   <p className="p-1 text-left text-sm text-red-400">{error}</p>
                 )}

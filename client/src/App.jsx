@@ -7,6 +7,7 @@ import HomePage from "./pages/HomePage";
 import RegisterPage from "./pages/RegisterPage";
 import ProfilePage from "./pages/ProfilePage";
 import PrivateRoute from "./Components/PrivateRoute";
+import CreatePost from "./pages/CreatePost";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         
         <Route element={<PrivateRoute />}>
           <Route path="/profile" element={<ProfilePage />}></Route>
+          <Route path="/create" element={<CreatePost/>}></Route>
         </Route>
       </Routes>
     </BrowserRouter>

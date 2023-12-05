@@ -15,8 +15,12 @@ export default function Header() {
             Home
           </Link>
 
-          <Link className="font-medium hover:underline" to="/register">
-            Register
+          <Link className="font-medium hover:underline" to="/login">
+            Login
+          </Link>
+          
+          <Link className="font-medium hover:underline" to="/create">
+            new post
           </Link>
 
           <Link className="font-medium hover:underline " to="/profile">

@@ -3,7 +3,8 @@ import express from "express";
 import mongodbConfig from "./config/mongodbConfig.js";
 import userRoutes from "./routes/user.routes.js";
 import authRoutes from "./routes/auth.routes.js";
-import cookieParser from 'cookie-parser'
+import postRoutes from "./routes/post.routes.js";
+import cookieParser from "cookie-parser";
 // import cors from 'cors'
 
 //iniciar env variables
@@ -24,6 +25,7 @@ mongodbConfig();
 //Rutas de la aplicacion
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/post", postRoutes);
 
 // Middleware para manejo de errores
 app.use((err, req, res, next) => {

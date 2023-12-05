@@ -16,8 +16,6 @@ import {
   deleteUserFailure,
   signOut,
 } from "../redux/user/userSlice";
-// import { current } from "@reduxjs/toolkit";
-// import { Link } from "react-router-dom";
 
 export default function ProfilePage() {
   const dispatch = useDispatch();
@@ -27,8 +25,6 @@ export default function ProfilePage() {
   const [imageError, setImageError] = useState(false);
   const [imagePercent, setImagePercent] = useState(0);
   const [updateSuccess, setUpdateSuccess] = useState(false);
-  //   const [userListings, setUserListings] = useState([]);
-  //   const [showListingsError, setShowListingsError] = useState(false);
 
   const { currentUser } = useSelector((state) => state.user);
 
