@@ -1,30 +1,17 @@
 // post.model.js
-import mongoose from "mongoose";
-
-const PostSchema = new mongoose.Schema(
+import moongose from "mongoose";
+const PostSchema = new moongose.Schema(
   {
-    title: {
-      type: String,
-      required: true,
-    },
-    summary: {
-      type: String,
-      required: true,
-    },
-    content: {
-      type: String,
-      required: true,
-    },
-    cover: {
-      type: String,
-      required: true,
-    },
+    title: String,
+    summary: String,
+    content: String,
+    cover: String,
   },
   {
     timestamps: true,
   }
 );
 
-const Post = mongoose.model("Post", PostSchema);
+const Post = moongose.model("Post", PostSchema);
 
 export default Post;

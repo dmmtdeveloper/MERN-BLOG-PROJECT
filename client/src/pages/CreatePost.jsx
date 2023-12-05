@@ -1,8 +1,10 @@
 import { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { useNavigate } from "react-router-dom";
 
 export default function CreatePost() {
+  const navigate = useNavigate();
   // quill configuration
   const toolbarOptions = [
     // ["link", "image"],
@@ -20,6 +22,9 @@ export default function CreatePost() {
   const module = {
     toolbar: toolbarOptions,
   };
+
+  // state para redirigir a home page
+  // const [redirect, setRedirect ]= useState(false)
 
   const [title, setTitle] = useState("");
   const [summary, setSummary] = useState("");
@@ -43,7 +48,8 @@ export default function CreatePost() {
 
       if (response.ok) {
         // Manejar la respuesta del servidor si es necesario
-        console.log("Post creado con éxito");
+        alert("Post creado con éxito");
+        navigate("/");
       } else {
         console.error(
           "Error al crear el post. Código de estado:",

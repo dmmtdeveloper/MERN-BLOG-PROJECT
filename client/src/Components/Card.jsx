@@ -1,7 +1,7 @@
 export default function Card() {
   return (
     <div className="max-w-lg  md:grid-cols-3">
-      <div className=" card bg-base-100  shadow-xl md:p-2 sm:card-side p-2">
+      <div className=" card bg-base-100  p-2 shadow-xl sm:card-side md:p-2">
         <figure>
           <img
             src="https://daisyui.com/images/stock/photo-1494232410401-ad00d5433cfa.jpg"
@@ -16,7 +16,7 @@ export default function Card() {
             <a className="text-gray-800" href="">
               David Martinez
             </a>
-            <time className="pl-2 sm: text-xs  font-medium text-gray-400">
+            <time className="sm: pl-2 text-xs  font-medium text-gray-400">
               06-12-2023
             </time>
           </p>
