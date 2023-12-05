@@ -2,14 +2,11 @@ import { errorHandler } from "../middleware/errorHandle.js";
 import User from "../models/auth.models.js";
 import bcrypt from "bcryptjs";
 
-
 export const test = (req, res) => {
   res.json({
     message: "Api route is working",
   });
 };
-
-
 
 export const updateUser = async (req, res, next) => {
   if (req.user.id !== req.params.id) {
@@ -33,6 +30,19 @@ export const updateUser = async (req, res, next) => {
     );
     const { password, ...rest } = updatedUser._doc;
     res.status(200).json(rest);
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+export const deteleUser = async (req, res, next) => {
+  if (req.user.id !== req.params.id)
+    return next(errorHandler(401, "You can only delete your own account!"));
+
+  try {
+    await User.findByIdAndDelete(req.params.id);
+    res.status(200).json("User has been deleted!");
   } catch (error) {
     next(error);
   }

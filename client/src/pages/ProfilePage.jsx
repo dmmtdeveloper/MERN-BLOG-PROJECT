@@ -16,6 +16,7 @@ import {
   deleteUserFailure,
   signOut,
 } from "../redux/user/userSlice";
+// import { current } from "@reduxjs/toolkit";
 // import { Link } from "react-router-dom";
 
 export default function ProfilePage() {
@@ -30,12 +31,6 @@ export default function ProfilePage() {
   //   const [showListingsError, setShowListingsError] = useState(false);
 
   const { currentUser } = useSelector((state) => state.user);
-
-  const [user, setUser] = useState({
-    name: "",
-    password: "",
-  });
-  const { name, password } = user;
 
   useEffect(() => {
     if (image) {
@@ -70,8 +65,8 @@ export default function ProfilePage() {
   };
 
   const handleChange = (e) => {
-    setUser({
-      ...user,
+    setFormData({
+      ...formData,
       [e.target.id]: e.target.value,
     });
   };
@@ -130,7 +125,15 @@ export default function ProfilePage() {
 
   return (
     <div>
-      <div className="hero min-h-screen bg-base-200">
+      <div
+        className="hero min-h-screen "
+        style={{
+          background: `linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url(${currentUser.profilePicture})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
         <div className="hero-content mx-auto flex-col items-center lg:flex-row-reverse">
           <div className="flex max-w-sm flex-col text-center lg:text-left">
             <h1 className="text-5xl font-bold">Profile</h1>
@@ -173,15 +176,15 @@ export default function ProfilePage() {
               </p>
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">username</span>
+                  <span className="label-text">name</span>
                 </label>
                 <input
-                  onChange={handleChange}
-                  value={name}
+                  defaultValue={currentUser.name}
                   type="text"
                   id="name"
                   placeholder="username"
                   className="input input-bordered"
+                  onChange={handleChange}
                   required
                   autoComplete="name"
                 />
@@ -192,12 +195,11 @@ export default function ProfilePage() {
                 </label>
                 <input
                   onChange={handleChange}
-                  value={password}
                   type="password"
                   id="password"
                   placeholder="password"
                   className="input input-bordered"
-                  autoComplete="password"
+                  autoComplete={currentUser.password}
                   required
                 />
                 <label className="label"></label>
@@ -219,7 +221,7 @@ export default function ProfilePage() {
                   Sign out
                 </span>
               </div>
-              <p className="mt-5 text-green-700">
+              <p className="mt-5 text-sm text-green-700">
                 {updateSuccess && "User is updated successfully!"}
               </p>
             </form>

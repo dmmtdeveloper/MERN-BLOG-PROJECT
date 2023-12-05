@@ -6,21 +6,21 @@ export default function Header() {
   return (
     <main className=" ">
       <header className="mb-24 flex justify-between">
-        <Link className="font-bold" to="/">
-          MyBlog
+        <Link className="font-bold text-3xl" to="/">
+          📷
         </Link>
 
         <nav className=" flex gap-4 ">
-          <Link className="hover:underline" to="/">
+          <Link className="font-medium hover:underline" to="/">
             Home
           </Link>
 
-          <Link className="hover:underline " to="/register">
+          <Link className="font-medium hover:underline" to="/register">
             Register
           </Link>
 
-          <Link className="hover:underline " to="/profile">
-            {currentUser ? <p>{currentUser.name}</p> : <li>login</li>}
+          <Link className="font-medium hover:underline " to="/profile">
+            {currentUser ? <p>{currentUser.name}</p> : <p>Login</p>}
           </Link>
         </nav>
       </header>
