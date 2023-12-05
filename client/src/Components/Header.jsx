@@ -6,7 +6,7 @@ export default function Header() {
   return (
     <main className=" ">
       <header className="mb-24 flex justify-between">
-        <Link className="font-bold text-3xl" to="/">
+        <Link className="text-3xl font-bold" to="/">
           📷
         </Link>
 
@@ -15,14 +15,14 @@ export default function Header() {
             Home
           </Link>
 
-          <Link className="font-medium hover:underline" to="/login">
-            Login
-          </Link>
-          
           <Link className="font-medium hover:underline" to="/create">
             new post
           </Link>
 
+          <Link className="font-medium hover:underline" to="/register">
+            Register
+          </Link>
+          
           <Link className="font-medium hover:underline " to="/profile">
             {currentUser ? <p>{currentUser.name}</p> : <p>Login</p>}
           </Link>

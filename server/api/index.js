@@ -5,7 +5,7 @@ import userRoutes from "./routes/user.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 import postRoutes from "./routes/post.routes.js";
 import cookieParser from "cookie-parser";
-// import cors from 'cors'
+
 
 //iniciar env variables
 import dotenv from "dotenv";
@@ -17,7 +17,7 @@ const app = express();
 //config express app
 app.use(express.json());
 app.use(cookieParser());
-// app.use(cors({credentials:true, origin:'http://localhost:3000/'}))
+
 
 //conecta a la base de datos
 mongodbConfig();

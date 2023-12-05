@@ -3,16 +3,9 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 export default function CreatePost() {
-  const [post, setPost] = useState({
-    title: "",
-    summary: "",
-    content: "",
-  });
-  const { content, title, summary } = post;
-  const [file, setFile] = useState("");
-
+  // quill configuration
   const toolbarOptions = [
-    ["link", "image"],
+    // ["link", "image"],
     [{ header: [1, 2, 3, 4, 5, 6, false] }],
     ["bold", "italic"],
     [{ font: [] }],
@@ -28,59 +21,98 @@ export default function CreatePost() {
     toolbar: toolbarOptions,
   };
 
-  const handleSubmitNewPost = (e) => {
+  const [title, setTitle] = useState("");
+  const [summary, setSummary] = useState("");
+  const [content, setContent] = useState("");
+  const [files, setFiles] = useState([]);
+
+  const handleCreateNewPost = async (e) => {
+    e.preventDefault();
+
     const data = new FormData();
     data.set("title", title);
     data.set("summary", summary);
-    e.preventDefault();
-    fetch("/api/post/create", {
-      method: "POST",
-      body: "Content-Type",
-    });
-  };
+    data.set("content", content);
+    data.append("file", files[0]);
 
-  const handleChange = (e) => {
-    setPost({
-      ...post,
-      [e.target.id]: e.target.value,
-    });
+    try {
+      const response = await fetch("/api/post/create", {
+        method: "POST",
+        body: data,
+      });
+
+      if (response.ok) {
+        // Manejar la respuesta del servidor si es necesario
+        console.log("Post creado con éxito");
+      } else {
+        console.error(
+          "Error al crear el post. Código de estado:",
+          response.status
+        );
+      }
+    } catch (error) {
+      console.error("Error en la solicitud:", error);
+    }
   };
 
   return (
-    <form onSubmit={handleSubmitNewPost}>
-      <div className="flex flex-col gap-2">
-        <input
-          value={title}
-          onChange={handleChange}
-          className="input input-bordered"
-          type="title"
-          placeholder={"Title"}
-          id="title"
-        />
-        <input
-          value={summary}
-          onChange={handleChange}
-          className="input input-bordered"
-          type="summary"
-          placeholder={"Summary"}
-          id="summary"
-        />
-        <input
-          value={file}
-          className="rounded-lg p-2"
-          type="file"
-          onChange={handleChange}
-          id="file"
-        />
+    <div className="mx-auto flex flex-col items-center">
+      <div className="flex max-w-sm flex-col text-center">
+        <h1 className="text-4xl font-bold">Create Post 📸✨</h1>
+        <p className="py-6">
+          Puedes contar la historia detrás de la imagen o simplemente dejar que
+          hable por sí misma. ¡La comunidad está ansiosa por ver tu talento y
+          tus experiencias visuales!
+        </p>
       </div>
-      <ReactQuill
-        value={content}
-        onChange={handleChange}
-        theme="snow"
-        modules={module}
-        id="content"
-      />
-      <button className="btn btn-primary mt-5 w-full">CREATE POST</button>
-    </form>
+      <form className="card-body" onSubmit={handleCreateNewPost}>
+        <div className="flex flex-col gap-2">
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text font-semibold">Title</span>
+            </label>
+            <input
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="input input-bordered"
+              type="title"
+              id="title"
+            />
+          </div>
+
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text font-semibold">Summary</span>
+            </label>
+            <input
+              value={summary}
+              onChange={(e) => setSummary(e.target.value)}
+              className="input input-bordered"
+              type="summary"
+              id="summary"
+            />
+          </div>
+
+          <div className="w-full rounded-xl border border-gray-700 p-3">
+            <input
+              onChange={(e) => setFiles(e.target.files)}
+              className="rounded-lg p-2"
+              type="file"
+              id="image"
+              accept="image/*"
+              multiple
+            />
+          </div>
+        </div>
+        <ReactQuill
+          value={content}
+          onChange={(newValue) => setContent(newValue)}
+          theme="snow"
+          modules={module}
+          id="content"
+        />
+        <button className="btn btn-primary mt-5 w-full">CREATE POST</button>
+      </form>
+    </div>
   );
 }

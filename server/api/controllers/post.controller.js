@@ -1,10 +1,25 @@
-import Post from "../models/post.models.js"
+// post.controller.js
+import Post from "../models/post.models.js";
+import fs from "fs";
 
 export const createPost = async (req, res, next) => {
-    try {
-        const post = await Post.create(req.body)
-        return res.status(201).json(post)
-    } catch (error) {
-        next(error)
-    }
-}
+
+  // configuracion de file
+  const { originalname, path } = req.file;
+  const parts = originalname.split("_");
+  const ext = parts[parts.length - 1];
+  const newPath = path + "." + ext;
+  fs.renameSync(path, newPath );
+  
+  const{title, summary, content} = req.body;
+  
+  const data = await Post.create({
+    title,
+    summary,
+    content,
+    cover: newPath
+  })
+  
+  res.json(data);
+  
+};

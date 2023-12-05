@@ -1,3 +1,4 @@
+// post.model.js
 import mongoose from "mongoose";
 
 const PostSchema = new mongoose.Schema(
@@ -14,11 +15,7 @@ const PostSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    image: {
-      type: Array,
-      required: true,
-    },
-    userRef: {
+    cover: {
       type: String,
       required: true,
     },

@@ -122,7 +122,7 @@ export default function ProfilePage() {
   return (
     <div>
       <div
-        className="hero min-h-screen "
+        className="hero min-h-screen"
         style={{
           background: `linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url(${currentUser.profilePicture})`,
           backgroundSize: "cover",
