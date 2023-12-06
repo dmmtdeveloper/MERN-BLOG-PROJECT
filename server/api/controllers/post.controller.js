@@ -11,7 +11,7 @@ export const createPost = async (req, res, next) => {
   fs.renameSync(path, newPath);
 
   const { title, summary, content } = req.body;
- const postDoc =  await Post.create({
+  const postDoc = await Post.create({
     title,
     summary,
     content,

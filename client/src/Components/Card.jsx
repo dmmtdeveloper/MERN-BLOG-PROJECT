@@ -1,6 +1,9 @@
-export default function Card() {
+import {format} from 'date-fns'
+
+export default function Card({ title, summary, cover, content, createdAt }) {
+  
   return (
-    <div className="max-w-lg  md:grid-cols-3">
+    <div className=" md:grid-cols-4">
       <div className=" card bg-base-100  p-2 shadow-xl sm:card-side md:p-2">
         <figure>
           <img
@@ -10,19 +13,17 @@ export default function Card() {
         </figure>
         <div className="md:card-body  sm:p-2 ">
           <h2 className="text-left font-bold sm:text-2xl md:text-3xl">
-            New album is released!
+            {title}
           </h2>
-          <p className="text-left md:text-xs xl:text-xs ">
+          <p className="text-left flex flex-col md:text-xs xl:text-xs ">
             <a className="text-gray-800" href="">
               David Martinez
             </a>
-            <time className="sm: pl-2 text-xs  font-medium text-gray-400">
-              06-12-2023
+            <time className="sm:  text-xs  font-medium text-gray-400">
+              {format(new Date(createdAt), 'dd-MM-yyy')}
             </time>
           </p>
-          <p className="text-left">
-            Click the button to listen on Spotiwhy app.
-          </p>
+          <p className="text-left">{summary}</p>
           <div className="card-actions justify-start">
             <button className=" btn btn-primary w-full">View</button>
           </div>

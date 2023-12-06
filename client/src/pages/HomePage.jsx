@@ -16,8 +16,6 @@ export default function HomePage() {
     <div className=" md: mx-auto flex grid-cols-2 flex-col items-center gap-5 lg:grid">
       {posts.length > 0 &&
         posts.map((post, index) => <Card {...post} key={index} />)}
-
-        <Card/>
     </div>
   );
 }

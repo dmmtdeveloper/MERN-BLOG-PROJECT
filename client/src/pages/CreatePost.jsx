@@ -47,7 +47,6 @@ export default function CreatePost() {
       });
 
       if (response.ok) {
-        // Manejar la respuesta del servidor si es necesario
         alert("Post creado con éxito");
         navigate("/");
       } else {
