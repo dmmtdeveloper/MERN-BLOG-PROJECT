@@ -44,6 +44,7 @@ export default function CreatePost() {
       const response = await fetch("/api/post/create", {
         method: "POST",
         body: data,
+        // credentials:'include'
       });
 
       if (response.ok) {

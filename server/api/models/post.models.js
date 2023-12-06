@@ -1,6 +1,6 @@
-// post.model.js
-import moongose from "mongoose";
-const PostSchema = new moongose.Schema(
+import mongoose from "mongoose";
+
+const PostSchema = new mongoose.Schema(
   {
     title: String,
     summary: String,
@@ -12,6 +12,6 @@ const PostSchema = new moongose.Schema(
   }
 );
 
-const Post = moongose.model("Post", PostSchema);
+const Post = mongoose.model("Post", PostSchema);
 
 export default Post;

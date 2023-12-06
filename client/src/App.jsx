@@ -8,6 +8,7 @@ import RegisterPage from "./pages/RegisterPage";
 import ProfilePage from "./pages/ProfilePage";
 import PrivateRoute from "./Components/PrivateRoute";
 import CreatePost from "./pages/CreatePost";
+import PostPage from "./pages/PostPage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/" element={<HomePage />}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/register" element={<RegisterPage />}></Route>
+        <Route path="/post/:id" element={<PostPage/>}></Route>
 
         
         <Route element={<PrivateRoute />}>

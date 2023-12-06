@@ -17,6 +17,7 @@ const app = express();
 //config express app
 app.use(express.json());
 app.use(cookieParser());
+app.use("/uploads", express.static("uploads"));
 
 
 //conecta a la base de datos
