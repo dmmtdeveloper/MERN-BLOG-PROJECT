@@ -9,6 +9,7 @@ import ProfilePage from "./pages/ProfilePage";
 import PrivateRoute from "./Components/PrivateRoute";
 import CreatePost from "./pages/CreatePost";
 import PostPage from "./pages/PostPage";
+// import Footer from "./Components/Footer";
 
 function App() {
   return (
@@ -25,7 +26,10 @@ function App() {
           <Route path="/profile" element={<ProfilePage />}></Route>
           <Route path="/create" element={<CreatePost/>}></Route>
         </Route>
+
+
       </Routes>
+      {/* <Footer/> */}
     </BrowserRouter>
   );
 }

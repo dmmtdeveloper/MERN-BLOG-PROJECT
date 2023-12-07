@@ -6,25 +6,29 @@ export default function Header() {
   return (
     <main className=" ">
       <header className="mb-24 flex justify-between">
-        <Link className="text-3xl font-bold" to="/">
-          📷
+        <Link className="text-2xl font-bold" to="/">
+          MyBlog📷
         </Link>
 
         <nav className=" flex gap-4 ">
-          <Link className="font-medium hover:underline" to="/">
+          <Link className="font-normal hover:underline" to="/">
             Home
           </Link>
 
-          <Link className="font-medium hover:underline" to="/create">
-            new post
+          <Link className="font-normal hover:underline" to="/create">
+            Created
           </Link>
 
-          <Link className="font-medium hover:underline" to="/register">
+          <Link className="font-normal hover:underline" to="/register">
             Register
           </Link>
-          
-          <Link className="font-medium hover:underline " to="/profile">
-            {currentUser ? <p>{currentUser.name}</p> : <p>Login</p>}
+
+          <Link className="font-normal hover:underline " to="/profile">
+            {currentUser ? (
+              <img className="h-7 w-7 rounded-full object-cover" src={currentUser.profilePicture}></img>
+            ) : (
+              <p>Login</p>
+            )}
           </Link>
         </nav>
       </header>

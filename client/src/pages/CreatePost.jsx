@@ -23,6 +23,9 @@ export default function CreatePost() {
     toolbar: toolbarOptions,
   };
 
+ 
+
+
   // state para redirigir a home page
   // const [redirect, setRedirect ]= useState(false)
 
@@ -31,35 +34,36 @@ export default function CreatePost() {
   const [content, setContent] = useState("");
   const [files, setFiles] = useState([]);
 
-  const handleCreateNewPost = async (e) => {
-    e.preventDefault();
+ const handleCreateNewPost = async (e) => {
+   e.preventDefault();
 
-    const data = new FormData();
-    data.set("title", title);
-    data.set("summary", summary);
-    data.set("content", content);
-    data.append("file", files[0]);
+   const data = new FormData();
+   data.set("title", title);
+   data.set("summary", summary);
+   data.set("content", content);
+   data.append("file", files[0]);
 
-    try {
-      const response = await fetch("/api/post/create", {
-        method: "POST",
-        body: data,
-        // credentials:'include'
-      });
+   try {
+     const response = await fetch("/api/post/create", {
+       method: "POST",
+       body: data,
+       credentials: "include",
+     });
 
-      if (response.ok) {
-        alert("Post creado con éxito");
-        navigate("/");
-      } else {
-        console.error(
-          "Error al crear el post. Código de estado:",
-          response.status
-        );
-      }
-    } catch (error) {
-      console.error("Error en la solicitud:", error);
-    }
-  };
+     if (response.ok) {
+       alert("Post creado con éxito");
+       navigate("/");
+     } else {
+       console.error(
+         "Error al crear el post. Código de estado:",
+         response.status
+       );
+     }
+   } catch (error) {
+     console.error("Error en la solicitud:", error);
+   }
+ };
+
 
   return (
     <div className="mx-auto flex flex-col items-center">
@@ -99,10 +103,15 @@ export default function CreatePost() {
             />
           </div>
 
-          <div className="w-full rounded-xl border border-gray-700 p-3">
+          <div className="flex flex-col">
+            <label className="label">
+              <span className="label-text font-semibold">
+                Upload your photo
+              </span>
+            </label>
             <input
               onChange={(e) => setFiles(e.target.files)}
-              className="rounded-lg p-2"
+              className="file-input file-input-bordered w-full"
               type="file"
               id="image"
               accept="image/*"
@@ -110,14 +119,20 @@ export default function CreatePost() {
             />
           </div>
         </div>
-        <ReactQuill
-          value={content}
-          onChange={(newValue) => setContent(newValue)}
-          theme="snow"
-          modules={module}
-          id="content"
-        />
-        <button className="btn btn-primary mt-5 w-full">CREATE POST</button>
+        <div>
+          <label className="label">
+            <span className="label-text font-semibold">Tell us your story</span>
+          </label>
+
+          <ReactQuill
+            value={content}
+            onChange={(newValue) => setContent(newValue)}
+            theme="snow"
+            modules={module}
+            id="content"
+          />
+          <button className="btn btn-primary mt-5 w-full">CREATE POST</button>
+        </div>
       </form>
     </div>
   );

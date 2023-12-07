@@ -6,6 +6,7 @@ const PostSchema = new mongoose.Schema(
     summary: String,
     content: String,
     cover: String,
+    idAuthor: { type: mongoose.Types.ObjectId, ref: "User" },
   },
   {
     timestamps: true,

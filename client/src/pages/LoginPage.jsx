@@ -37,6 +37,7 @@ export default function LoginPage() {
         body: JSON.stringify(user),
       });
       const data = await response.json();
+
       if (data.sucess === false) {
         dispatch(signInFailure(data.message));
         return;
