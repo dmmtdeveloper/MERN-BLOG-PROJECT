@@ -24,11 +24,10 @@ export default function PostPage() {
   return (
     <div>
       <h1 className="pb-5 pt-1 text-center text-5xl font-bold">{post.title}</h1>
-      <p className="text-center text-xs font-normal text-gray-500">
+      <p className="text-center text-sm pb-7 font-normal text-gray-500">
         {formatISO9075(new Date(post.createdAt))}
       </p>
       <picture>
-        <p className="text-left text-sm">by:</p>
         <img src={`http://localhost:3000/${post.cover}`} alt="" />
       </picture>
       <p className="pb-5 text-left">{post.summary}</p>

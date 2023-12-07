@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   getStorage,
   uploadBytesResumable,
@@ -19,6 +20,7 @@ import {
 
 export default function ProfilePage() {
   const dispatch = useDispatch();
+  const navigate = useNavigate() 
   const fileRef = useRef(null);
   const [formData, setFormData] = useState({});
   const [image, setImage] = useState(undefined);
@@ -27,6 +29,7 @@ export default function ProfilePage() {
   const [updateSuccess, setUpdateSuccess] = useState(false);
 
   const { currentUser } = useSelector((state) => state.user);
+  console.log(currentUser)
 
   useEffect(() => {
     if (image) {
@@ -87,6 +90,9 @@ export default function ProfilePage() {
       }
       dispatch(updateUserSuccess(data));
       setUpdateSuccess(true);
+      alert("Updated user");
+      navigate("/")
+
     } catch (error) {
       dispatch(updateUserFailure(error));
     }
@@ -120,7 +126,7 @@ export default function ProfilePage() {
   };
 
   return (
-    <div>
+    <div className=" p-5">
       <div
         className="hero min-h-screen"
         style={{
@@ -206,13 +212,13 @@ export default function ProfilePage() {
               <div className="flex justify-between ">
                 <span
                   onClick={handleDeleteAccount}
-                  className="cursor-pointer text-sm text-red-500"
+                  className="cursor-pointer text-sm text-blue-400"
                 >
                   Detele account
                 </span>
                 <span
                   onClick={handleSignOut}
-                  className="cursor-pointer text-sm text-red-500"
+                  className="cursor-pointer text-sm text-blue-400"
                 >
                   Sign out
                 </span>

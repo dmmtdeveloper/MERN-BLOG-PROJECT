@@ -17,9 +17,11 @@ export default function HomePage() {
 
   return (
     <div className=" ">
-      <p className="text-left pb-5 text-1xl text-gray-500">bienvenido: {currentUser.name}</p>
+      <p className="text-1xl pb-5 text-left text-gray-500">
+        Welcome :{currentUser.name}
+      </p>
 
-      <div className="md: flex grid-cols-2 flex-col  gap-5 lg:grid">
+      <div className=" md:grid-cols-2  flex-col gap-10 lg:grid">
         {posts.length > 0 &&
           posts.map((post, index) => <Card {...post} key={index} />)}
       </div>

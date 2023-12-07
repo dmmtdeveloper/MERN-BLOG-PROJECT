@@ -2,10 +2,22 @@ import mongoose from "mongoose";
 
 const PostSchema = new mongoose.Schema(
   {
-    title: String,
-    summary: String,
-    content: String,
-    cover: String,
+    title: {
+      type: String,
+      required: true,
+    },
+    summary: {
+      type: String,
+      required: true,
+    },
+    content: {
+      type: String,
+      required: true,
+    },
+    cover: {
+      type: String,
+      required: true,
+    },
     idAuthor: { type: mongoose.Types.ObjectId, ref: "User" },
   },
   {

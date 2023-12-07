@@ -66,7 +66,7 @@ export default function CreatePost() {
 
 
   return (
-    <div className="mx-auto flex flex-col items-center">
+    <div className="mx-auto flex flex-col items-center ">
       <div className="flex max-w-sm flex-col text-center">
         <h1 className="text-4xl font-bold">Create Post 📸✨</h1>
         <p className="py-6">
