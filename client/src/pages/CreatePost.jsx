@@ -71,8 +71,7 @@ export default function CreatePost() {
         <h1 className="text-4xl font-bold">Create Post 📸✨</h1>
         <p className="py-6">
           Puedes contar la historia detrás de la imagen o simplemente dejar que
-          hable por sí misma. ¡La comunidad está ansiosa por ver tu talento y
-          tus experiencias visuales!
+          hable por sí misma.
         </p>
       </div>
       <form className="card-body" onSubmit={handleCreateNewPost}>
